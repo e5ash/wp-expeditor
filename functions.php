@@ -156,3 +156,81 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
 
+if( function_exists('acf_add_options_page') ) {
+	
+	acf_add_options_page(array(
+		'page_title' 	=> 'Настройки',
+		'menu_title'	=> 'Настройки',
+		'menu_slug' 	=> 'theme-general-settings',
+		'capability'	=> 'edit_posts',
+		'redirect'		=> false
+	));
+
+}
+
+function cptui_register_my_cpts() {
+
+	/**
+	 * Post Type: Клиенты.
+	 */
+
+	$labels = array(
+		"name" => __( "Клиенты", "name" ),
+		"singular_name" => __( "Клиенты", "name" ),
+	);
+
+	$args = array(
+		"label" => __( "Клиенты", "name" ),
+		"labels" => $labels,
+		"description" => "",
+		"public" => true,
+		"publicly_queryable" => true,
+		"show_ui" => true,
+		"show_in_rest" => false,
+		"rest_base" => "",
+		"has_archive" => false,
+		"show_in_menu" => true,
+		"exclude_from_search" => false,
+		"capability_type" => "post",
+		"map_meta_cap" => true,
+		"hierarchical" => false,
+		"rewrite" => array( "slug" => "clients", "with_front" => true ),
+		"query_var" => true,
+		"supports" => array( "title", "editor", "thumbnail" ),
+	);
+
+	register_post_type( "clients", $args );
+
+	/**
+	 * Post Type: Отзывы.
+	 */
+
+	$labels = array(
+		"name" => __( "Отзывы", "name" ),
+		"singular_name" => __( "Отзывы", "name" ),
+	);
+
+	$args = array(
+		"label" => __( "Отзывы", "name" ),
+		"labels" => $labels,
+		"description" => "",
+		"public" => true,
+		"publicly_queryable" => true,
+		"show_ui" => true,
+		"show_in_rest" => false,
+		"rest_base" => "",
+		"has_archive" => false,
+		"show_in_menu" => true,
+		"exclude_from_search" => false,
+		"capability_type" => "post",
+		"map_meta_cap" => true,
+		"hierarchical" => false,
+		"rewrite" => array( "slug" => "reviews", "with_front" => true ),
+		"query_var" => true,
+		"supports" => array( "title", "editor", "thumbnail" ),
+	);
+
+	register_post_type( "reviews", $args );
+}
+
+add_action( 'init', 'cptui_register_my_cpts' );
